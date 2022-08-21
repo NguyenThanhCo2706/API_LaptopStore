@@ -8,11 +8,11 @@ const productController = {
                 res.status(200).json(products);
             }
             else {
-                res.status(500).json('No product found')
+                res.json({ status: 'Not found!' })
             }
         }
         catch (err) {
-            res.status(500).json(err)
+            res.json({ status: 'Error' })
         }
     },
     getProductByName: async (req, res) => {
@@ -23,11 +23,27 @@ const productController = {
                 res.status(200).json(products);
             }
             else {
-                res.status(500).json('No product found')
+                res.json({ status: 'Not found!' })
             }
         }
         catch (err) {
-            res.status(500).json(err)
+            res.json({ status: 'Error' })
+        }
+    },
+    getProductByCategory: async (req, res) => {
+        try {
+            let str = req.query.category;
+            console.log(str);
+            let products = await Products.find({ category: str });
+            if (products) {
+                res.status(200).json(products);
+            }
+            else {
+                res.json({ status: 'Not found!' })
+            }
+        }
+        catch (err) {
+            res.json({ status: 'Error' })
         }
     },
     getProduct: async (req, res) => {
@@ -39,15 +55,15 @@ const productController = {
                     res.status(200).json(product);
                 }
                 else {
-                    res.status(500).json('No product found')
+                    res.json({ status: 'Not found!' })
                 }
             }
             else {
-                res.status(500).json('Product_id invalid')
+                res.json({ status: '2' })
             }
         }
         catch (err) {
-            res.status(500).json(err)
+            res.json({ status: 'Error' })
         }
     },
     createProduct: async (req, res) => {

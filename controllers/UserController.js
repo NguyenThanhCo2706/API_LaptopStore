@@ -41,7 +41,7 @@ const UserController = {
                 })
                 if (user.password === password) {
                     let token = UserController.generateToken(user)
-                    res.status(200).json({ token, message: "Login success" })
+                    res.status(200).json(token)
                 }
                 else {
                     return res.status(403).json("Wrong Username or Password")
