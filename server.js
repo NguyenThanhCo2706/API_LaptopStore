@@ -9,10 +9,8 @@ const product = require('./routes/Product')
 const category = require('./routes/Category')
 const detailOrder = require('./routes/DetailOrder')
 const order = require('./routes/Order')
-
 const bodyParser = require('body-parser')
 const port = 3001;
-const Products = require('./models/Product')
 
 
 const app = express()
@@ -32,10 +30,6 @@ app.use('/order', order)
 app.use(express.static(path.join(__dirname)));
 console.log(path.join(__dirname))
 
-app.get('/', async (req, res) => {
-    const users = await Products.find()
-    res.status(200).json(users)
-})
 
 app.listen(process.env.PORT || port, () => {
     console.log('listening on port http://localhost:' + port);

@@ -5,8 +5,8 @@ const detailOrderSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-    productId: {
-        type: String
+    product: {
+        type: Object
     },
     customer: {
         type: String
