@@ -41,7 +41,7 @@ const orderController = {
                 order.isComfirm = true;
                 order.admin = admin;
                 console.log(order)
-                order.save();
+                await order.save();
                 return res.status(200).json(await Order.find())
             }
             return res.status(404).json('InValid Input')
