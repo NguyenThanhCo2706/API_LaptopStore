@@ -1,4 +1,5 @@
 const DetailOrders = require('../entities/DetailOrder')
+const responseData = require('./ResponseData')
 
 const DetailOrderModel = {
     getOrderDetailAsync: async (req, res) => {
@@ -6,12 +7,12 @@ const DetailOrderModel = {
             let customer = req.query.customer;
             if (customer) {
                 const detailOrders = await DetailOrders.find({ customer: customer, orderId: null })
-                return res.status(200).json(detailOrders)
+                return res.status(200).json(responseData(200, detailOrders, ""));
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            res.staus(500).json(err)
+            res.staus(500).json(responseData(500, [], err));
         }
     },
     viewDetailOrder: async (req, res) => {
@@ -19,12 +20,12 @@ const DetailOrderModel = {
             let orderId = req.query.orderId;
             if (orderId) {
                 const detailOrders = await DetailOrders.find({ orderId: orderId })
-                return res.status(200).json(detailOrders)
+                return res.status(200).json(responseData(200, detailOrders, ""));
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            res.staus(500).json(err)
+            res.staus(500).json(responseData(500, [], err));
         }
     },
     createDetailOrder: async (req, res) => {
@@ -54,11 +55,11 @@ const DetailOrderModel = {
                 return res.status(200).json(newDetail)
             }
             else {
-                return res.status(400).json('Bad Request')
+                return res.status(400).json(responseData(400, [], "Bad Request"));
             }
         }
         catch (err) {
-            res.status(500).json(err)
+            res.status(500).json(responseData(500, [], err));
         }
     },
     uppdateDetailOrder: async (req, res) => {
@@ -73,14 +74,14 @@ const DetailOrderModel = {
 
                 detailOrders.save()
                 console.log("update success")
-                res.status(200).json(detailOrders)
+                res.status(200).json(responseData(200, detailOrders, ""));
             }
             else {
-                res.status(400).json('Bad Request')
+                res.status(400).json(responseData(400, [], "Bad Request"));
             }
         }
         catch (err) {
-            res.status(500).json(err)
+            res.status(500).json(responseData(500, [], err));
         }
     },
     deleteDetailOrder: async (req, res) => {
@@ -90,18 +91,18 @@ const DetailOrderModel = {
                 let detailOrder = await DetailOrders.findById({ _id: id });
                 if (detailOrder) {
                     detailOrder.delete()
-                    res.status(200).json(detailOrder);
+                    res.status(200).json(responseData(200, detailOrder, ""));;
                 }
                 else {
-                    res.status(400).json('Bad Request')
+                    res.status(400).json(responseData(400, [], "Bad Request"));
                 }
             }
             else {
-                res.status(400).json('Bad Request')
+                res.status(400).json(responseData(400, [], "Bad Request"));
             }
         }
         catch (err) {
-            res.status(500).json(err)
+            res.status(500).json(responseData(500, [], err));
         }
     },
 }

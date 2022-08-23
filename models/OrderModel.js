@@ -1,29 +1,31 @@
 const Order = require('../entities/Order')
 const DetailOrders = require('../entities/DetailOrder')
+const responseData = require('./ResponseData')
+
 
 const OrderModel = {
     getAllOrder: async (req, res) => {
         try {
             let orders = await Order.find().sort({ _id: -1 });
             if (orders) {
-                return res.status(200).json(orders);
+                return res.status(200).json(responseData(200, orders, ""));
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            res.status(500).json(err)
+            res.status(500).json(responseData(500, [], err));
         }
     },
     getOrderToComfirm: async (req, res) => {
         try {
             let orders = await Order.find({ isComfirm: false });
             if (orders) {
-                res.status(200).json(orders);
+                res.status(200).json(responseData(200, orders, ""));
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            res.status(500).json(err)
+            res.status(500).json(responseData(500, [], err));
         }
     },
     comfirmOrder: async (req, res) => {
@@ -37,12 +39,12 @@ const OrderModel = {
                 order.admin = admin;
                 console.log(order)
                 await order.save();
-                return res.status(200).json(await Order.find().sort({ _id: -1 }))
+                return res.status(200).json(responseData(200, await Order.find().sort({ _id: -1 }), ""))
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            res.staus(500).json(err)
+            res.staus(500).json(responseData(500, [], err));
         }
 
     },
@@ -62,12 +64,12 @@ const OrderModel = {
                     detailOrders[index].orderId = order._id
                     detailOrders[index].save()
                 }
-                return res.status(200).json('success')
+                return res.status(200).json(responseData(200, [], ""));
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            res.staus(500).json(err)
+            res.staus(500).json(responseData(500, [], err));
         }
     },
 }

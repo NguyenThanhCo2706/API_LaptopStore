@@ -1,16 +1,23 @@
 const Products = require('../entities/Product')
+const responseData = require('./ResponseData')
+
 
 const ProductModel = {
     getAllProduct: async (req, res) => {
         try {
             let products = await Products.find();
             if (products) {
-                return res.status(200).json(products);
+                // return res.status(200).json({
+                //     "status_code": 200,
+                //     "data": products,
+                //     "error_messages": ""
+                // });
+                return res.status(200).json(responseData(200, products, ""));
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(err)
+            return res.status(500).json(responseData(500, [], err))
         }
     },
     getProductByName: async (req, res) => {
@@ -18,12 +25,12 @@ const ProductModel = {
             let str = req.query.name;
             let products = await Products.find({ "name": { $regex: str } });
             if (products) {
-                return res.status(200).json(products);
+                return res.status(200).json(responseData(200, products, ""));
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(err)
+            return res.status(500).json(responseData(500, [], err))
         }
     },
     getProductByCategory: async (req, res) => {
@@ -32,12 +39,12 @@ const ProductModel = {
             console.log(str);
             let products = await Products.find({ category: str });
             if (products) {
-                return res.status(200).json(products);
+                return res.status(200).json(responseData(200, products, ""));
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(err)
+            return res.status(500).json(responseData(500, [], err))
         }
     },
     getProduct: async (req, res) => {
@@ -46,14 +53,14 @@ const ProductModel = {
             if (id) {
                 let product = await Products.findById({ _id: id });
                 if (product) {
-                    return res.status(200).json(product);
+                    return res.status(200).json(responseData(200, product, ""));
                 }
-                return res.status(400).json('Bad Request')
+                return res.status(400).json(responseData(400, [], "Bad Request"))
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(err)
+            return res.status(500).json(responseData(500, [], err))
         }
     },
     createProduct: async (req, res) => {
@@ -82,12 +89,12 @@ const ProductModel = {
                 })
                 const product = newProduct.save()
                 console.log("create success")
-                return res.status(200).json(product)
+                return res.status(200).json(responseData(200, product, ""));
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(err)
+            return res.status(500).json(responseData(500, [], err))
         }
     },
     updateProduct: async (req, res) => {
@@ -116,12 +123,12 @@ const ProductModel = {
                 product.price = price;
                 product.category = category;
                 product.save()
-                return res.status(200).json(product)
+                return res.status(200).json(responseData(200, product, ""));
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(err)
+            return res.status(500).json(responseData(500, [], err))
         }
     },
     deleteProduct: async (req, res) => {
@@ -131,15 +138,15 @@ const ProductModel = {
                 let product = await Products.findById({ _id: id });
                 if (product) {
                     product.delete()
-                    return res.status(200).json(product);
+                    return res.status(200).json(responseData(200, product, ""));
                 }
-                return res.status(400).json('Bad Request')
+                return res.status(400).json(responseData(400, [], "Bad Request"))
 
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(err)
+            return res.status(500).json(responseData(500, [], err))
         }
     },
 }

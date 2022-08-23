@@ -1,19 +1,20 @@
-const jwt = require('jsonwebtoken')
 const Categorys = require('../entities/Category')
+const responseData = require('./ResponseData')
+
 
 const CategoryModel = {
     getAllCategory: async (req, res) => {
         try {
             let categorys = await Categorys.find();
             if (categorys) {
-                res.status(200).json(categorys);
+                res.status(200).json(responseData(200, categorys, ""))
             }
             else {
-                res.status(400).json('Bad Request')
+                res.status(400).json(responseData(400, [], "Bad Request"));
             }
         }
         catch (err) {
-            res.status(500).json(err)
+            res.status(500).json(responseData(500, [], err));
         }
     },
     createCategory: async (req, res) => {
@@ -26,14 +27,14 @@ const CategoryModel = {
                 })
                 const category = newCategory.save()
                 console.log("create success")
-                res.status(200).json(category)
+                res.status(200).json(responseData(200, category, ""))
             }
             else {
-                res.status(400).json('Bad Request')
+                res.status(400).json(responseData(400, [], "Bad Request"));
             }
         }
         catch (err) {
-            res.status(500).json(err)
+            res.status(500).json(responseData(500, [], err));
         }
     },
 }

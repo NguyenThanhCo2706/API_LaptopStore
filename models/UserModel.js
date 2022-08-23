@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const User = require('../entities/User')
+const responseData = require('./ResponseData')
 
 const UserModel = {
     registerUser: async (req, res) => {
@@ -14,12 +15,12 @@ const UserModel = {
                     admin: admin
                 })
                 const user = await newUser.save()
-                return res.status(200).json(user)
+                return res.status(200).json(responseData(200, user, ""));
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            return res.status(500).json(err)
+            return res.status(500).json(responseData(500, [], err));
         }
     },
     generateToken: (user) => {
@@ -38,18 +39,18 @@ const UserModel = {
                 })
                 if (user.password === password) {
                     let token = UserModel.generateToken(user)
-                    return res.status(200).json(token)
+                    return res.status(200).json(responseData(200, token, ""));
                 }
-                return res.status(400).json('Bad Request')
+                return res.status(400).json(responseData(400, [], "Bad Request"));
             }
-            return res.status(400).json('Bad Request')
+            return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            return res.status(500).json(err)
+            return res.status(500).json(responseData(500, [], err));
         }
     },
     logoutUser: async (req, res) => {
-        res.status(200).json("Logout success")
+        res.status(200).json(responseData(200, [], ""));
     }
 }
 
