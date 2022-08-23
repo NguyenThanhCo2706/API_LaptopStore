@@ -4,7 +4,7 @@ const detailOrderController = {
     getOrderDetailAsync: Models.getOrderDetailAsync,
     viewDetailOrder: Models.viewDetailOrder,
     createDetailOrder: Models.createDetailOrder,
-    uppdateOrderId: Models.uppdateOrderId,
+    uppdateDetailOrder: Models.uppdateDetailOrder,
     deleteDetailOrder: Models.deleteDetailOrder,
 }
 

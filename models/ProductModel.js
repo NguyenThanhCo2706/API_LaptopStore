@@ -5,14 +5,12 @@ const ProductModel = {
         try {
             let products = await Products.find();
             if (products) {
-                res.status(200).json(products);
+                return res.status(200).json(products);
             }
-            else {
-                res.json({ status: 'Not found!' })
-            }
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
-            res.json({ status: 'Error' })
+            return res.status(500).json(err)
         }
     },
     getProductByName: async (req, res) => {
@@ -20,14 +18,12 @@ const ProductModel = {
             let str = req.query.name;
             let products = await Products.find({ "name": { $regex: str } });
             if (products) {
-                res.status(200).json(products);
+                return res.status(200).json(products);
             }
-            else {
-                res.json({ status: 'Not found!' })
-            }
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
-            res.json({ status: 'Error' })
+            return res.status(500).json(err)
         }
     },
     getProductByCategory: async (req, res) => {
@@ -36,14 +32,12 @@ const ProductModel = {
             console.log(str);
             let products = await Products.find({ category: str });
             if (products) {
-                res.status(200).json(products);
+                return res.status(200).json(products);
             }
-            else {
-                res.json({ status: 'Not found!' })
-            }
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
-            res.json({ status: 'Error' })
+            return res.status(500).json(err)
         }
     },
     getProduct: async (req, res) => {
@@ -52,18 +46,14 @@ const ProductModel = {
             if (id) {
                 let product = await Products.findById({ _id: id });
                 if (product) {
-                    res.status(200).json(product);
+                    return res.status(200).json(product);
                 }
-                else {
-                    res.json({ status: 'Not found!' })
-                }
+                return res.status(400).json('Bad Request')
             }
-            else {
-                res.json({ status: '2' })
-            }
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
-            res.json({ status: 'Error' })
+            return res.status(500).json(err)
         }
     },
     createProduct: async (req, res) => {
@@ -92,14 +82,12 @@ const ProductModel = {
                 })
                 const product = newProduct.save()
                 console.log("create success")
-                res.status(200).json(product)
+                return res.status(200).json(product)
             }
-            else {
-                res.status(500).json('Input invalid')
-            }
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
-            res.status(500).json(err)
+            return res.status(500).json(err)
         }
     },
     updateProduct: async (req, res) => {
@@ -128,14 +116,12 @@ const ProductModel = {
                 product.price = price;
                 product.category = category;
                 product.save()
-                res.status(200).json(product)
+                return res.status(200).json(product)
             }
-            else {
-                res.status(500).json('Input invalid')
-            }
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
-            res.status(500).json(err)
+            return res.status(500).json(err)
         }
     },
     deleteProduct: async (req, res) => {
@@ -145,18 +131,15 @@ const ProductModel = {
                 let product = await Products.findById({ _id: id });
                 if (product) {
                     product.delete()
-                    res.status(200).json(product);
+                    return res.status(200).json(product);
                 }
-                else {
-                    res.status(500).json('No product found')
-                }
+                return res.status(400).json('Bad Request')
+
             }
-            else {
-                res.status(500).json('Product_id invalid')
-            }
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
-            res.status(500).json(err)
+            return res.status(500).json(err)
         }
     },
 }

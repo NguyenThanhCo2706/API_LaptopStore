@@ -14,11 +14,9 @@ const UserModel = {
                     admin: admin
                 })
                 const user = await newUser.save()
-                res.status(200).json(user)
+                return res.status(200).json(user)
             }
-            else {
-                return res.status(403).json("Invalid data")
-            }
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
             return res.status(500).json(err)
@@ -28,28 +26,23 @@ const UserModel = {
         return jwt.sign({
             username: user.username,
             admin: user.admin
-        }, 'mk', { expiresIn: "1d" })
+        }, 'mk', { expiresIn: "1y" })
     },
     loginUser: async (req, res) => {
         try {
             let username = req.body.username;
             let password = req.body.password;
-            console.log(username, password)
             if (username && password) {
                 const user = await User.findOne({
                     username: username,
                 })
                 if (user.password === password) {
                     let token = UserModel.generateToken(user)
-                    res.status(200).json(token)
+                    return res.status(200).json(token)
                 }
-                else {
-                    return res.status(403).json("Wrong Username or Password")
-                }
+                return res.status(400).json('Bad Request')
             }
-            else {
-                return res.status(403).json("Invalid data")
-            }
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
             return res.status(500).json(err)

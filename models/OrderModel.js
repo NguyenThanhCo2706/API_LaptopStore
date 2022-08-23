@@ -6,14 +6,12 @@ const OrderModel = {
         try {
             let orders = await Order.find().sort({ _id: -1 });
             if (orders) {
-                res.status(200).json(orders);
+                return res.status(200).json(orders);
             }
-            else {
-                res.json({ status: 'Not found!' })
-            }
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
-            res.json({ status: 'Error' })
+            res.status(500).json(err)
         }
     },
     getOrderToComfirm: async (req, res) => {
@@ -22,12 +20,10 @@ const OrderModel = {
             if (orders) {
                 res.status(200).json(orders);
             }
-            else {
-                res.json({ status: 'Not found!' })
-            }
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
-            res.json({ status: 'Error' })
+            res.status(500).json(err)
         }
     },
     comfirmOrder: async (req, res) => {
@@ -35,7 +31,6 @@ const OrderModel = {
             let admin = req.body.admin;
             let orderId = req.body.orderId;
             console.log(admin + ' ' + orderId);
-
             if (admin && orderId) {
                 const order = await Order.findById({ _id: orderId })
                 order.isComfirm = true;
@@ -44,15 +39,15 @@ const OrderModel = {
                 await order.save();
                 return res.status(200).json(await Order.find().sort({ _id: -1 }))
             }
-            return res.status(404).json('InValid Input')
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
-            res.staus(500).json('Not found')
+            res.staus(500).json(err)
         }
 
     },
     createOrder: async (req, res) => {
-        const customer = req.query.customer
+        const customer = req.body.customer
         console.log(customer)
         try {
             if (customer) {
@@ -69,10 +64,10 @@ const OrderModel = {
                 }
                 return res.status(200).json('success')
             }
-            return res.status(404).json('InValid Input')
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
-            res.staus(500).json('Not found')
+            res.staus(500).json(err)
         }
     },
 }

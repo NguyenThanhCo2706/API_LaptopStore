@@ -9,7 +9,7 @@ const CategoryModel = {
                 res.status(200).json(categorys);
             }
             else {
-                res.status(500).json('No category found')
+                res.status(400).json('Bad Request')
             }
         }
         catch (err) {
@@ -29,7 +29,7 @@ const CategoryModel = {
                 res.status(200).json(category)
             }
             else {
-                res.status(500).json('Input invalid')
+                res.status(400).json('Bad Request')
             }
         }
         catch (err) {

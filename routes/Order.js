@@ -3,9 +3,8 @@ const orderController = require('../controllers/OrderController')
 
 router.get('/list', orderController.getAllOrder)
 router.get('/comfirm', orderController.getOrderToComfirm)
-// router.get('/', orderController.createOrder)
-router.post('/', orderController.comfirmOrder)
-router.get('/init', orderController.createOrder)
+router.put('/', orderController.comfirmOrder)
+router.post('/', orderController.createOrder)
 
 
 module.exports = router

@@ -8,10 +8,10 @@ const DetailOrderModel = {
                 const detailOrders = await DetailOrders.find({ customer: customer, orderId: null })
                 return res.status(200).json(detailOrders)
             }
-            return res.status(404).json('InValid Input')
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
-            res.staus(500).json('Not found')
+            res.staus(500).json(err)
         }
     },
     viewDetailOrder: async (req, res) => {
@@ -21,10 +21,10 @@ const DetailOrderModel = {
                 const detailOrders = await DetailOrders.find({ orderId: orderId })
                 return res.status(200).json(detailOrders)
             }
-            return res.status(404).json('InValid Input')
+            return res.status(400).json('Bad Request')
         }
         catch (err) {
-            res.staus(500).json('Not found')
+            res.staus(500).json(err)
         }
     },
     createDetailOrder: async (req, res) => {
@@ -51,17 +51,17 @@ const DetailOrderModel = {
                 })
                 newDetail.save()
                 console.log("create success")
-                res.status(200).json(newDetail)
+                return res.status(200).json(newDetail)
             }
             else {
-                res.status(500).json('Input invalid')
+                return res.status(400).json('Bad Request')
             }
         }
         catch (err) {
             res.status(500).json(err)
         }
     },
-    uppdateOrderId: async (req, res) => {
+    uppdateDetailOrder: async (req, res) => {
         try {
             let customer = req.body.customer;
             let orderId = req.body.orderId;
@@ -76,7 +76,7 @@ const DetailOrderModel = {
                 res.status(200).json(detailOrders)
             }
             else {
-                res.status(404).json('Input invalid')
+                res.status(400).json('Bad Request')
             }
         }
         catch (err) {
@@ -93,11 +93,11 @@ const DetailOrderModel = {
                     res.status(200).json(detailOrder);
                 }
                 else {
-                    res.status(500).json('DetailOrder not found')
+                    res.status(400).json('Bad Request')
                 }
             }
             else {
-                res.status(500).json('Id invalid')
+                res.status(400).json('Bad Request')
             }
         }
         catch (err) {
