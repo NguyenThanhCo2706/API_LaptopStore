@@ -12,12 +12,13 @@ const DetailOrderModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            res.staus(500).json(responseData(500, [], err));
+            res.staus(405).json(responseData(405, [], err));
         }
     },
     viewDetailOrder: async (req, res) => {
         try {
             let orderId = req.query.orderId;
+            console.log(orderId)
             if (orderId) {
                 const detailOrders = await DetailOrders.find({ orderId: orderId })
                 return res.status(200).json(responseData(200, detailOrders, ""));
@@ -25,7 +26,7 @@ const DetailOrderModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            res.staus(500).json(responseData(500, [], err));
+            res.staus(405).json(responseData(405, [], err));
         }
     },
     createDetailOrder: async (req, res) => {
@@ -59,7 +60,7 @@ const DetailOrderModel = {
             }
         }
         catch (err) {
-            res.status(500).json(responseData(500, [], err));
+            res.status(405).json(responseData(405, [], err));
         }
     },
     uppdateDetailOrder: async (req, res) => {
@@ -81,7 +82,7 @@ const DetailOrderModel = {
             }
         }
         catch (err) {
-            res.status(500).json(responseData(500, [], err));
+            res.status(405).json(responseData(405, [], err));
         }
     },
     deleteDetailOrder: async (req, res) => {
@@ -102,7 +103,7 @@ const DetailOrderModel = {
             }
         }
         catch (err) {
-            res.status(500).json(responseData(500, [], err));
+            res.status(405).json(responseData(405, [], err));
         }
     },
 }

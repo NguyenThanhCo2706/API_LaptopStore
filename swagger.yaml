@@ -1,0 +1,622 @@
+openapi: 3.0.3
+info:
+  title: LaptopStore API
+  description: |-
+    LaptopStore API Information
+  contact:
+    email: conguyen.270601@gmail.com
+  version: 1.0.11
+
+servers:
+  - url: http://localhost:3001
+tags:
+  - name: Product
+    description: API for Product
+  - name: Category
+    description: API for Category
+  - name: DetailOrder
+    description: API for DetailOrder
+  - name: Order
+    description: API for Order
+  - name: User
+    description: API for User
+paths:
+  /product/category:
+    get:
+      tags:
+        - Product
+      summary: get Product by Category
+      description: get Product by Category
+      operationId: getProductByCategory
+      parameters:
+        - in: query
+          name: category
+          required: true
+          schema:
+            type: string
+          allowReserved: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+  /product/list:
+    get:
+      tags:
+        - Product
+      summary: get all Product
+      description: get Product in the system
+      operationId: getAllProduct
+      parameters: []
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+  /product/search:
+    get:
+      tags:
+        - Product
+      summary: get Product by Name Product
+      description: find all Product by name Product
+      operationId: getProductByName
+      parameters:
+        - in: query
+          name: name
+          required: true
+          schema:
+            type: string
+          allowReserved: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+  /product:
+    get:
+      tags:
+        - Product
+      summary: get Product by Id
+      description: find Product by Id Product
+      operationId: getProduct
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+          allowReserved: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+    post:
+      tags:
+        - Product
+      summary: Add new product
+      description: Add a new product to the store
+      operationId: addProduct
+      requestBody:
+        description: Create a new product in the store
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+    put:
+      tags:
+        - Product
+      summary: Update product
+      description: Update product by Id
+      operationId: updateProduct
+      requestBody:
+        description: Update Product
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'          
+        '400':
+          description: Invalid ID supplied
+        '405':
+          description: Validation exception
+    delete:
+      tags:
+        - Product
+      summary: delete Product
+      description: delete Product by Id
+      operationId: deleteProduct
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+          allowReserved: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+  # Category
+  /category:
+    get:
+      tags:
+        - Category
+      summary: get All Category
+      description: get All Category
+      operationId: getAllCategory
+      parameters: []
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+    post:
+      tags:
+        - Category
+      summary: Add new Category
+      description: Add new Category to the store
+      operationId: createCategory
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Category'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+  # DetailOrder
+  /detailOrder/view:
+    get:
+      tags:
+        - DetailOrder
+      summary: view Detail Order
+      description: view Detail Order by id Order
+      operationId: viewDetailOrder
+      parameters:
+        - in: query
+          name: orderId
+          required: true
+          schema:
+            type: string
+          allowReserved: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailOrder'   
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+  /detailOrder:
+    get:
+      tags:
+        - DetailOrder
+      summary: get all DetailOrder by Customer
+      description: get all DetailOrder by Customer
+      operationId: getOrderDetailAsync
+      parameters: 
+        - in: query
+          name: customer
+          required: true
+          schema:
+            type: string
+          allowReserved: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+    post:
+      tags:
+        - DetailOrder
+      summary: Add new DetailOrder
+      description: Add a new DetailOrder to the Order
+      operationId: createDetailOrder
+      requestBody:
+        description: Create a new DetailOrder in the Order
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                product: 
+                  type: string
+                  example: "Acer Nitro 5"
+                customer:
+                  type: string
+                  example: "userNameCustomer"
+                amount:
+                  type: interger
+                  format: int64
+                  example: 1
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+    put:
+      tags:
+        - DetailOrder
+      summary: uppdate DetailOrder
+      description: uppdateDetailOrder by Id
+      operationId: uppdateDetailOrder
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DetailOrder'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}      
+        '400':
+          description: Invalid ID supplied
+        '405':
+          description: Validation exception
+      security: []
+    delete:
+      tags:
+        - DetailOrder
+      summary: delete DetailOrder
+      description: delete DetailOrder by Id
+      operationId: deleteDetailOrder
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+          allowReserved: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+  #Order:
+  /order/list:
+    get:
+      tags:
+        - Order
+      summary: get all Order
+      description: get all Order 
+      operationId: getAllOrder
+      parameters: []
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+  /order/comfirm:
+    get:
+      tags:
+        - Order
+      summary: get all Order to Comfirm
+      description: get all Order  to Comfirm
+      operationId: getOrderToComfirm
+      parameters: []
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+  /order:
+    post:
+      tags:
+        - Order
+      summary: Add new Order
+      description: Add a new Order
+      operationId: createOrder
+      requestBody:
+        description: Create a new Order
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                customer:
+                  type: string
+                  example: "userNameCustomer"
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+    put:
+      tags:
+        - Order
+      summary: uppdate Order
+      description: admin comfirm order of customer by Id
+      operationId: comfirmOrder
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                admin:
+                  type: string
+                  example: "userNameAdmin"
+                orderId:
+                  type: string
+                  example: "6304a12803f0228b83ea6b40"
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}      
+        '400':
+          description: Invalid ID supplied
+        '405':
+          description: Validation exception
+      security: []
+  /order/list:
+    get:
+      tags:
+        - Order
+      summary: get all Order
+      description: get all Order 
+      operationId: getAllOrder
+      parameters: []
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+  /order/comfirm:
+    get:
+      tags:
+        - Order
+      summary: get all Order to Comfirm
+      description: get all Order  to Comfirm
+      operationId: getOrderToComfirm
+      parameters: []
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+  /user/logout:
+    get:
+      tags:
+        - User
+      summary: logout
+      description: logout
+      operationId: logoutUser
+      parameters: []
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+  /user/register:
+    post:
+      tags:
+        - User
+      summary: Add new User
+      description: Add a new User
+      operationId: registerUser
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+  /user/login:  
+    post:
+      tags:
+        - User
+      summary: login
+      description: login
+      operationId: loginUser
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          headers: {}
+        '400':
+          description: Bad Request
+        '405':
+          description: Invalid input
+      security: []
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Laptop Gaming Acer Nitro 5 Eagle AN515-57-5669"
+        CPU:
+          type: string
+          example: "intel Core i5-11400H"
+        ram:
+          type: string
+          example: 8GB
+        hardDrive:
+          type: string
+          example: "SSD 512GB"
+        card:
+          type: string
+          example: "VGA Card Nividia GTX 1650 4GB"
+        operatingSystem:
+          type: string
+          example: "Windows 11 Home"
+        img:
+          type: string
+          format: binary
+        price:
+          type: integer
+          format: int64
+          example: 19290000
+        category:
+          type: string
+          example: "62f65db23703c5de1f6b81fd"
+    Category:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Acer"
+    DetailOrder:
+      type: object
+      properties:
+        orderId:
+          type: string
+          example: "630398ae911bf2fc82111519"
+        name:
+          type: object
+          properties:
+            productId:
+              type: string
+              example: "630398ae911bf2fc82111519"
+            productName:
+              type: string
+              example: "Acer Nitro 5"
+          
+        customer:
+          type: string
+          example: "A"
+        amount:
+          type: interger
+          format: int64
+          example: 4
+    Order:
+      type: object
+      properties:
+        admin:
+          type: string
+          example: "B"
+        customer:
+          type: string
+          example: "A"
+        isComfirm:
+          type: boolean
+          example: "false"
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+          example: "aaaaaa"   
+        password:
+          type: string
+          example: "123456" 
+  securitySchemes:
+        httpBearer:
+            type: http
+            scheme: bearer
+security:
+    - httpBearer: []       

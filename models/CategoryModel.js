@@ -14,7 +14,7 @@ const CategoryModel = {
             }
         }
         catch (err) {
-            res.status(500).json(responseData(500, [], err));
+            res.status(405).json(responseData(405, [], err));
         }
     },
     createCategory: async (req, res) => {
@@ -34,7 +34,7 @@ const CategoryModel = {
             }
         }
         catch (err) {
-            res.status(500).json(responseData(500, [], err));
+            res.status(405).json(responseData(405, [], err));
         }
     },
 }

@@ -7,6 +7,4 @@ router.post('/', detailOrderController.createDetailOrder)
 router.put('/', detailOrderController.uppdateDetailOrder)
 router.delete('/', detailOrderController.deleteDetailOrder)
 
-
-
 module.exports = router

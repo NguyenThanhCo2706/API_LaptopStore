@@ -17,7 +17,7 @@ const ProductModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(responseData(500, [], err))
+            return res.status(405).json(responseData(405, [], err))
         }
     },
     getProductByName: async (req, res) => {
@@ -30,7 +30,7 @@ const ProductModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(responseData(500, [], err))
+            return res.status(405).json(responseData(405, [], err))
         }
     },
     getProductByCategory: async (req, res) => {
@@ -44,7 +44,7 @@ const ProductModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(responseData(500, [], err))
+            return res.status(405).json(responseData(405, [], err))
         }
     },
     getProduct: async (req, res) => {
@@ -60,7 +60,7 @@ const ProductModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(responseData(500, [], err))
+            return res.status(405).json(responseData(405, [], err))
         }
     },
     createProduct: async (req, res) => {
@@ -71,10 +71,11 @@ const ProductModel = {
             let hardDrive = req.body.hardDrive;
             let card = req.body.card;
             let operatingSystem = req.body.operatingSystem;
+            console.log(req.body)
+
             let img = req.file.originalname;
             let price = req.body.price;
             let category = req.body.category;
-            console.log("a")
             if (name && CPU && ram && hardDrive && card && operatingSystem && img && price && category) {
                 const newProduct = await Products({
                     name: name,
@@ -94,7 +95,7 @@ const ProductModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(responseData(500, [], err))
+            return res.status(405).json(responseData(405, [], err))
         }
     },
     updateProduct: async (req, res) => {
@@ -128,7 +129,7 @@ const ProductModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(responseData(500, [], err))
+            return res.status(405).json(responseData(405, [], err))
         }
     },
     deleteProduct: async (req, res) => {
@@ -146,7 +147,7 @@ const ProductModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"))
         }
         catch (err) {
-            return res.status(500).json(responseData(500, [], err))
+            return res.status(405).json(responseData(405, [], err))
         }
     },
 }

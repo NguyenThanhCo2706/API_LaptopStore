@@ -13,7 +13,7 @@ const OrderModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            res.status(500).json(responseData(500, [], err));
+            res.status(405).json(responseData(405, [], err));
         }
     },
     getOrderToComfirm: async (req, res) => {
@@ -25,7 +25,7 @@ const OrderModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            res.status(500).json(responseData(500, [], err));
+            res.status(405).json(responseData(405, [], err));
         }
     },
     comfirmOrder: async (req, res) => {
@@ -44,7 +44,7 @@ const OrderModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            res.staus(500).json(responseData(500, [], err));
+            res.staus(405).json(responseData(405, [], err));
         }
 
     },
@@ -69,7 +69,7 @@ const OrderModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            res.staus(500).json(responseData(500, [], err));
+            res.staus(405).json(responseData(405, [], err));
         }
     },
 }

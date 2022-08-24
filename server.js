@@ -1,8 +1,10 @@
 const express = require('express')
-const multer = require('multer');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+
 const mongoose = require('./config/mongoConnect');
 const user = require('./routes/User')
 const product = require('./routes/Product')
@@ -15,12 +17,15 @@ const port = 3001;
 
 const app = express()
 
-
 app.use(cors());
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(bodyParser.json())
 app.use(cookieParser());
+
+
+const swaggerDocument = YAML.load('./swagger.yaml')
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.use('/user', user)
 app.use('/product', product)

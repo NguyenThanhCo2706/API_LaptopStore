@@ -20,7 +20,7 @@ const UserModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            return res.status(500).json(responseData(500, [], err));
+            return res.status(405).json(responseData(405, [], err));
         }
     },
     generateToken: (user) => {
@@ -46,7 +46,7 @@ const UserModel = {
             return res.status(400).json(responseData(400, [], "Bad Request"));
         }
         catch (err) {
-            return res.status(500).json(responseData(500, [], err));
+            return res.status(405).json(responseData(405, [], err));
         }
     },
     logoutUser: async (req, res) => {
