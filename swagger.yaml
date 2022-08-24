@@ -8,7 +8,7 @@ info:
   version: 1.0.11
 
 servers:
-  - url: http://localhost:3001
+  - url: https://laptopstore-api.herokuapp.com
 tags:
   - name: Product
     description: API for Product
