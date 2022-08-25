@@ -9,7 +9,6 @@ const MiddlewareUser = {
                 if (err) {
                     return res.status(403).json('token is not valid')
                 }
-                console.log(user)
                 req.user = user
                 next()
             })

@@ -246,7 +246,6 @@ paths:
           description: Bad Request
         '405':
           description: Invalid input
-      security: []
   /detailOrder:
     get:
       tags:
@@ -269,7 +268,6 @@ paths:
           description: Bad Request
         '405':
           description: Invalid input
-      security: []
     post:
       tags:
         - DetailOrder
@@ -302,7 +300,6 @@ paths:
           description: Bad Request
         '405':
           description: Invalid input
-      security: []
     put:
       tags:
         - DetailOrder
@@ -323,7 +320,6 @@ paths:
           description: Invalid ID supplied
         '405':
           description: Validation exception
-      security: []
     delete:
       tags:
         - DetailOrder
@@ -345,7 +341,6 @@ paths:
           description: Bad Request
         '405':
           description: Invalid input
-      security: []
   #Order:
   /order/list:
     get:
@@ -363,7 +358,6 @@ paths:
           description: Bad Request
         '405':
           description: Invalid input
-      security: []
   /order/comfirm:
     get:
       tags:
@@ -380,7 +374,6 @@ paths:
           description: Bad Request
         '405':
           description: Invalid input
-      security: []
   /order:
     post:
       tags:
@@ -407,7 +400,6 @@ paths:
           description: Bad Request
         '405':
           description: Invalid input
-      security: []
     put:
       tags:
         - Order
@@ -435,7 +427,6 @@ paths:
           description: Invalid ID supplied
         '405':
           description: Validation exception
-      security: []
   /order/list:
     get:
       tags:
@@ -452,7 +443,6 @@ paths:
           description: Bad Request
         '405':
           description: Invalid input
-      security: []
   /order/comfirm:
     get:
       tags:
@@ -469,7 +459,6 @@ paths:
           description: Bad Request
         '405':
           description: Invalid input
-      security: []
   /user/logout:
     get:
       tags:
