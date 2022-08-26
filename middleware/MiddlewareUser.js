@@ -18,7 +18,7 @@ const MiddlewareUser = {
         }
     },
     verifyTokenAndAdminUser: (req, res, next) => {
-        console.log('cow')
+        console.log('admin')
         if (req.user.admin) {
             next()
         }
